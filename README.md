@@ -1,6 +1,6 @@
 # Personalized Dynamic Music Emotion Recognition with Dual-Scale Attention-Based Meta-Learning (DSAML)
 <p align="center">
-    <a href="https://github.com/Littleor/Personalized-DMER/blob/master/LICENSE" target="blank">
+    <a href="https://github.com/Littleor/Personalized-DMER/blob/main/LICENSE" target="blank">
     <img src="https://img.shields.io/github/license/Littleor/Personalized-DMER?style=flat-square" alt="github-profile-readme-generator license" />
     </a>
     <a href="https://github.com/Littleor/Personalized-DMER/fork" target="blank">
