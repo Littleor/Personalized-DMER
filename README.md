@@ -27,13 +27,13 @@ Here is the core implementation of the DSAML model in the paper "Personalized Dy
 
 ### Prerequisites
 
-* Python 3.8.5
-* PyTorch >=2.2.1
+* Python >= 3.8.5, < 3.9
+* PyTorch >= 2.2.1
 
 ### Installation
 
 ```bash
-pip install -r requirements.txt
+conda env create -f environment.yml
 ```
 
 ### Dataset

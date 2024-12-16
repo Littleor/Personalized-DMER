@@ -1,0 +1,13 @@
+name: PDMER
+channels:
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+dependencies:
+  - python==3.8.20
+  - pytorch
+  - pytorch-cuda=12.1
+  - torchaudio
+  - torchvision
+  - transformers==4.37.2
+  - rich==13.7.0
+prefix: PDMER
