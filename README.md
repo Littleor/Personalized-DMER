@@ -17,7 +17,7 @@
     </a>
 </p>
 
-[[Project Website](https://littleor.github.io/PDMER/)] 
+[[Project Website](https://littleor.github.io/PDMER/)] | [[Paper](https://arxiv.org/abs/2412.19200)]
 
 ![Model Architecture](./static/images/Model-Architecture.png)
 
@@ -65,10 +65,13 @@ Then we need to preprocess the dataset, code will be released as soon as possibl
 If you find this code useful in your research, please consider citing:
 
 ```bibtex
-@inproceedings{zhang2025personalized,
-    title={Personalized Dynamic Music Emotion Recognition with Dual-Scale Attention-Based Meta-Learning},
-    author={Zhang, Dengming and You, Weitao and Liu, Ziheng and Sun, Lingyun and Chen, Pei},
-    booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-    year={2025}
+@misc{zhang2024personalizeddynamicmusicemotion,
+      title={Personalized Dynamic Music Emotion Recognition with Dual-Scale Attention-Based Meta-Learning}, 
+      author={Dengming Zhang and Weitao You and Ziheng Liu and Lingyun Sun and Pei Chen},
+      year={2024},
+      eprint={2412.19200},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD},
+      url={https://arxiv.org/abs/2412.19200}, 
 }
 ```
