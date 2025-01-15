@@ -8,6 +8,13 @@
 import logging
 import math
 
+# NOTE: This is a patch for https://discuss.pytorch.org/t/no-module-named-torchvision-transforms-functional-tensor/206390
+
+import torchvision.transforms.functional
+import sys
+sys.modules['torchvision.transforms.functional_tensor'] = torchvision.transforms.functional.to_tensor
+
+
 import torch
 import torch.nn as nn
 import torchaudio
