@@ -425,16 +425,3 @@ def get_dataset(DatasetClass, args):
         loading_cache_tensor_in_device=args.loading_cache_tensor_in_device,
         is_train_data=False,
     )
-
-
-if __name__ == "__main__":
-    score = {
-        "arousal_CCC": 0.445,
-        "arousal_PCC": 0.728,
-        "arousal_RMSE": 0.217,
-        "valence_CCC": 0.065,
-        "valence_PCC": 0.068,
-        "valence_RMSE": 0.313,
-    }
-    print(get_average_score(score))
-    print(1 - get_average_score(score))

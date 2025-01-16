@@ -12,12 +12,13 @@ from utils.music.util import generate_split_duration_list, get_audio_log_mel_spe
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from models.image_bind import ImageBind
-from models.PDMER import PDMERModel
 
 
 def using_image_bind_embedding(
     model: nn.Module,
 ) -> bool:
+    from models.PDMER import PDMERModel
+
     m = model.module if isinstance(model, l2l.algorithms.MAML) else model
     return isinstance(m, PDMERModel)
 
@@ -194,6 +195,11 @@ def get_feature_from_file(
         audio_file_path,
     )
 
+    # 3. Get the audio global imagebind audio embedding
+    global_imagebind_embedding: torch.Tensor = imagebind_model.get_embedding(
+        audio_file_path, audio_segmentation_list=[[(0, 30)]] * len(audio_file_path)
+    )
+
     # Get the embdding of the ImageBind
     log_mel_spec = get_audio_log_mel_spec(
         audio_file_path,
@@ -205,6 +211,7 @@ def get_feature_from_file(
 
     return {
         "imagebind_audio_embedding": imagebind_embedding,
+        "global_imagebind_audio_embedding": global_imagebind_embedding,
         "log_mel_spectrogram": log_mel_spec,
     }
 

@@ -164,7 +164,7 @@ class PDMERModel(nn.Module):
         )
         hidden_states = self.fusion_model(
             spectrogram_feature,
-            embedding.get("gloabl_imagebind_audio_embedding"),
+            embedding.get("global_imagebind_audio_embedding"),
         )
 
         output_hidden_state, attention_maps = self.multi_scale_attention(
@@ -187,10 +187,38 @@ if __name__ == "__main__":
     model = PDMERModel(device=device).to(device)
 
     x = {
-        # "imagebind_audio_embedding": torch.randn(6, 60, 1024).to(device),
-        "gloabl_imagebind_audio_embedding": torch.randn(6, 1, 1024).to(device),
+        "imagebind_audio_embedding": torch.randn(6, 60, 1024).to(device),
+        "global_imagebind_audio_embedding": torch.randn(6, 1, 1024).to(device),
         "log_mel_spectrogram": torch.randn(6, 60, 51, 128).to(device),
     }
 
     output = model(x)
     print(output["model_output"][0].shape, output["model_output"][1].shape)
+
+    # DEMO for batch input
+
+    from utils.inference import build_batch
+
+    audio_file_path_list = [
+        "/data2/datasets/DEAM/DEAM_audio/wav_audio/2.wav",
+        "/data2/datasets/DEAM/DEAM_audio/wav_audio/3.wav",
+        "/data2/datasets/DEAM/DEAM_audio/wav_audio/4.wav",
+    ]
+
+    embedding, _ = build_batch(
+        audio_file_path_list,
+        imagebind_model=None,
+        device=device,
+    )
+    print("\n Build batch embedding:")
+    for key, value in embedding.items():
+        print("\t", key, value.shape)
+
+    print("Result:")
+    output = model(embedding)
+    print(
+        "Arousal:",
+        output["model_output"][0].shape,
+        "Valence:",
+        output["model_output"][1].shape,
+    )

@@ -119,7 +119,7 @@ def process_batch(batch, is_train_data: bool):
         ),
     )
 
-    gloabl_imagebind_audio_embedding = model.get_embedding(
+    global_imagebind_audio_embedding = model.get_embedding(
         samples,
         audio_segmentation_list=(
             [
@@ -163,7 +163,7 @@ def process_batch(batch, is_train_data: bool):
                 ],  # NOTE: This isn't used in the model
                 # "fbank_feature": fbank_feature[i],
                 "log_mel_spectrogram": log_mel_spectrogram[i],
-                "gloabl_imagebind_audio_embedding": gloabl_imagebind_audio_embedding[i],
+                "global_imagebind_audio_embedding": global_imagebind_audio_embedding[i],
             },
             samples[i]
             .replace("wav_audio", args.cache_output_name)
