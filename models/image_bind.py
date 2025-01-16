@@ -119,18 +119,21 @@ class ImageBind(nn.Module):
 
 
 if __name__ == "__main__":
-    model = ImageBind()
+    device = "cuda:2"
+    model = ImageBind(device=device).to(device)
     samples = [
-        "/data/dataset/DEAM/DEAM_audio/wav_audio/2.wav",
-        "/data/dataset/DEAM/DEAM_audio/wav_audio/3.wav",
-        "/data/dataset/DEAM/DEAM_audio/wav_audio/4.wav",
+        "/data2/datasets/DEAM/DEAM_audio/wav_audio/2.wav",
+        "/data2/datasets/DEAM/DEAM_audio/wav_audio/3.wav",
+        "/data2/datasets/DEAM/DEAM_audio/wav_audio/4.wav",
     ]
     audio_embeds = model.get_embedding_wrap(
         samples,
     )
     print(audio_embeds.shape)
-    samples = ("/data/dataset/DEAM/DEAM_audio/wav_audio/2.wav",)
+    samples = ("/data2/datasets/DEAM/DEAM_audio/wav_audio/2.wav",)
     audio_embeds = model.get_embedding_wrap(
         samples,
     )
+    print(audio_embeds.shape)
+    audio_embeds = model.get_embedding(samples, audio_segmentation_list=[[(0, 30)]])
     print(audio_embeds.shape)
