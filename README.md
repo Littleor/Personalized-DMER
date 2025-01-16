@@ -94,6 +94,42 @@ python train.py --device "cuda:0" --not_using_maml
 python train.py --device "cuda:0" --using_personalized_data_train --using_personalized_data_validate
 ```
 
+### Inference
+For inference, you can use the following code snippet after training the model:
+
+```python
+
+from utils.inference import build_batch
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# Load model and checkpoint before inference
+# model = PDMERModel(device=device).to(device)
+# model.load_state_dict(torch.load("path/to/checkpoint.pth"))
+
+audio_file_path_list = [
+    "/path/to/audio1.wav",
+    "/path/to/audio2.wav",
+]
+
+# Build the input batch.
+embedding, _ = build_batch(
+    audio_file_path_list,
+    imagebind_model=None,   # If there are no ImageBind instances, set it to None, and it will auto load the model
+    device=device,
+)
+
+print("\n Build batch embedding:")
+for key, value in embedding.items():
+    print("\t", key, value.shape)
+
+print("Result:")
+output = model(embedding)
+print("Arousal: ", output["model_output"][0].shape) # The first element is the arousal prediction, [batch_size, 2 * second]
+print("Valence: ", output["model_output"][1].shape) # The second element is the valence prediction, [batch_size, 2 * second]
+```
+
+
 ## Citation
 
 If you find this code useful in your research, please consider citing:
