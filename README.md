@@ -34,31 +34,65 @@ Here is the core implementation of the DSAML model in the paper "Personalized Dy
 
 ```bash
 conda env create -f environment.yml
+pip install -r requirements.txt
 ```
 
-### Dataset
-We use the [DEAM](https://cvml.unige.ch/databases/DEAM/) and [PMEmo](https://github.com/HuiZhangDB/PMEmo) dataset, so you need to download the dataset and unzip both the audio and annotation files. The final file structure should be like this:
+### Dataset Download
+We need to download the [DEAM](https://cvml.unige.ch/databases/DEAM/) dataset and unzip both the audio and annotation files. 
+Specifically, you need create `DEAM_Annotations` and `DEAM_audio` folders in the root directory of the dataset root folder, and put the annotation and audio files in the corresponding folders. The final file structure should be like this:
+
 ```txt
 DEAM
 ├── DEAM_Annotations
 │   ├── annotations
 ├── DEAM_audio
-└── features
+│   ├── MEMD_audio
+└── features (This is Optional)
     └── features
 ```
-```txt
-PMEmo
-├── annotations
-├── chorus
-├── comments
-├── EDA
-├── features
-├── lyrics
-├── metadata.csv
-├── netease_soundcloud.csv
+
+Then we need to preprocess the dataset, but before we do that, we need to create the `.env` file.
+
+### Environment Variables
+
+After downloading the dataset, you need to create a `.env` file in the root directory of the project. The `.env` file should contain the following environment variables:
+
+```env
+# The directory to save the logs
+LOG_DIR="./logs"    
+
+# The directory to save the audio embedding for DEAM dataset
+AUDIO_EMBEDDING_DIR_NAME="feature_embedding"    
+# The path to the DEAM dataset
+DATASET_PATH="/your/path/to/DEAM"    
+
+# The key to the audio input in the dataset, please keep this
+AUDIO_INPUT_KEY="log_mel_spectrogram"
 ```
 
-Then we need to preprocess the dataset, code will be released as soon as possible.
+You should modify the `DATASET_PATH` and `PMEMO_DATASET_PATH` to the path where you store the DEAM and PMEmo dataset.
+
+### Dataset Preprocessing
+
+In order to speed up the training process, we need to preprocess the dataset. You can run the following command to preprocess the dataset:
+
+```bash
+./scripts/dataset.sh
+# If you want to use specific GPU, you can add the following command
+# CUDA_VISIBLE_DEVICES=1 ./scripts/dataset.sh
+```
+
+This process will take about one hour, depending on your machine.
+
+### Train
+After the dataset is preprocessed, you can train the model by running the following command:
+
+```bash
+# For DMER Task
+python train.py --device "cuda:0" --not_using_maml
+# For PDMER Task
+python train.py --device "cuda:0" --using_personalized_data_train --using_personalized_data_validate
+```
 
 ## Citation
 
