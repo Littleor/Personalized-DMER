@@ -34,6 +34,7 @@ Here is the core implementation of the DSAML model in the paper "Personalized Dy
 
 ```bash
 conda env create -f environment.yml
+conda activate PDMER
 pip install -r requirements.txt
 ```
 
