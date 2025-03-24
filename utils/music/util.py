@@ -50,7 +50,7 @@ def read_wav_as_tensor(
                 [
                     waveform,
                     torch.zeros(
-                        1,
+                        waveform.shape[0],
                         int(sample_rate * (end - begin) - waveform.shape[1]),
                     ).to(waveform.device),
                 ],
